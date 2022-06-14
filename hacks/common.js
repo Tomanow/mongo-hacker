@@ -83,6 +83,13 @@ NumberInt.prototype.tojson = function(indent, nolint, nocolor) {
   return surround('NumberInt', output);
 };
 
+NumberDecimal.prototype.tojson = function(indent, nolint, nocolor) {
+  const color = mongo_hacker_config.colors.number;
+  const output = colorize('"' + this.toString().match(/-?\d+/)[0] + '"',
+      color, nocolor);
+  return surround('NumberDecimal', output);
+};
+
 BinData.prototype.tojson = function(indent, nolint, nocolor) {
   const uuidType = mongo_hacker_config.uuid_type;
   const uuidColor = mongo_hacker_config.colors.uuid;
@@ -105,6 +112,7 @@ BinData.prototype.tojson = function(indent, nolint, nocolor) {
 };
 
 DBQuery.prototype.shellPrint = function() {
+  let index_use;
   try {
     const start = new Date().getTime();
     let n = 0;
@@ -144,7 +152,7 @@ DBQuery.prototype.shellPrint = function() {
         const type = result.cursor;
 
         if (type !== undefined) {
-          var index_use = 'Index[';
+          index_use = 'Index[';
           if (type === 'BasicCursor') {
             index_use += colorize('none', {color: 'red', bright: true});
           } else {
@@ -156,10 +164,9 @@ DBQuery.prototype.shellPrint = function() {
         }
       } else {
         const winningPlan = result.queryPlanner.winningPlan;
-        const winningInputStage = winningPlan.inputStage.inputStage;
-
-        if (winningPlan !== undefined) {
-          var index_use = 'Index[';
+        if (typeof winningPlan !== undefined) {
+          const winningInputStage = winningPlan.inputStage.inputStage;
+          index_use = 'Index[';
           if (winningPlan.inputStage.stage === 'COLLSCAN' ||
               (winningInputStage !== undefined && winningInputStage.stage !==
                'IXSCAN')) {
@@ -247,9 +254,10 @@ tojsonObject = function(x, indent, nolint, nocolor, sort_keys) {
   let num = 1;
 
   const keylist = [];
-
-  for (var key in keys)
+  let key;
+  for (key in keys) {
     keylist.push(key);
+  }
 
   if (sortKeys) {
     // Disable sorting if this object looks like an index spec
@@ -261,12 +269,11 @@ tojsonObject = function(x, indent, nolint, nocolor, sort_keys) {
     }
   }
 
-  for (let i = 0; i < keylist.length; i++) {
-    var key = keylist[i];
-
+  keylist.forEach(key => {
     const val = x[key];
-    if (val === DB.prototype || val === DBCollection.prototype)
-      continue;
+    if (val === DB.prototype || val === DBCollection.prototype) {
+      return;
+    }
 
     const color = mongo_hacker_config.colors.key;
     s += indent + colorize('"' + key + '"', color, nocolor) + ': ' +
@@ -276,7 +283,7 @@ tojsonObject = function(x, indent, nolint, nocolor, sort_keys) {
       num++;
     }
     s += lineEnding;
-  }
+  });
 
   // pop one level of indent
   indent = indent.substring(__indent.length);
