@@ -9,8 +9,8 @@ if (_isWindows() && mongo_hacker_config['windows_warning']) {
 }
 
 if (typeof db !== 'undefined') {
-    var shell_version = parseFloat(version()).toFixed(1);
-    var server_version = parseFloat(db.serverBuildInfo().version).toFixed(1);
+    const shell_version = parseFloat(version()).toFixed(1);
+    const server_version = parseFloat(db.serverBuildInfo().version).toFixed(1);
 
     if ((shell_version < 2.4) || (server_version < 2.4)) {
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

@@ -12,22 +12,30 @@
 
 ## Warnings
 
-* These enhancements are useful to me but they don't make sense for everyone. Feel free to tweak to your desire and please submit [feedback or pull requests](https://github.com/TylerBrock/mongo-hacker/issues).
-* Only tested with non-EOL versions of MongoDB server (currently 3.4+)
+* These enhancements are useful to me, but they don't make sense for everyone. Feel free to tweak to your desire and please submit [feedback or pull requests](https://github.com/TylerBrock/mongo-hacker/issues).
+* Works on MongoDB 3.4+, 4.0+
 * Does not work with `mongo` shell or MongoDB servers < 2.4
 * Updates called on existing cursors are experimental (see notes in API section)
 
 ## Installation
 
+#### npm
 ```sh
 npm install -g mongo-hacker
 mongo
 ```
 
+#### Just generate the main file
+```sh
+git clone https://github.com/Tomanow/mongo-hacker
+cd mongo-hacker
+make mongo_hacker.js
+```
+
 
 #### Install from source
-```
-git clone https://github.com/TylerBrock/mongo-hacker
+```sh
+git clone https://github.com/Tomanow/mongo-hacker
 cd mongo-hacker
 make install
 cd ..
@@ -50,7 +58,7 @@ mongo
   - Custom prompt: `hostname(process-version)[rs_status:set_name] db>`
   - Always pretty print. You can still use default format by appending `.ugly()` to the end of a statement.
   - Colorized query output for console/terminal windows supporting ANSI color codes.
-    ![Colorized Output](http://tylerbrock.github.com/mongo-hacker/screenshots/colorized_shell.png)
+    ![Colorized Output](https://github.com/Tomanow/mongo-hacker/screenshots/colorized_shell.png)
 
 #### Additional shell commands
 

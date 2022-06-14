@@ -1,6 +1,11 @@
 Changes to Mongo Hacker
 =======================
 
+#### v0.1.2 / 2022-06-12 (Tom's Fork)
+ - Fix: Syntax errors
+ - Clean up formatting
+ - Update README for recent updates
+
 #### v0.1.1 / 2019-12-06
  - Fix #208: Change Stream cursor methods isExhausted(), hasNext() broken
 
@@ -82,4 +87,3 @@ Special thanks to @stennie and @pvdb for updates and new hacks
 
 #### v0.0.3 / 2013-11-05
  - Initial release to NPM
- 
