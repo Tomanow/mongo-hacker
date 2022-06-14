@@ -1,24 +1,25 @@
-shellHelper.find = function (query) {
-    assert(typeof query == "string");
+shellHelper.find = function(query) {
+  assert(typeof query == 'string');
 
-    var args = query.split( /\s+/ );
-    query = args[0];
-    args = args.splice(1);
+  let args = query.split(/\s+/);
+  query = args[0];
+  args = args.splice(1);
 
-    if (query !== "") {
-        var regexp = new RegExp(query, "i");
-        var result = db.runCommand("listCommands");
-        for (var command in result.commands) {
-            var commandObj = result.commands[command];
-            var help = commandObj.help;
-            if (commandObj.help.indexOf('\n') != -1 ) {
-                help = commandObj.help.substring(0, commandObj.help.lastIndexOf('\n'));
-            }
-            if (regexp.test(command) || regexp.test(help)) {
-                var numSpaces = 30 - command.length;
-                print(colorize(command, {color: 'green'}), Array(numSpaces).join(" "), "-", help);
-            }
-        }
+  if (query !== '') {
+    const regexp = new RegExp(query, 'i');
+    const result = db.runCommand('listCommands');
+    for (let command in result.commands) {
+      const commandObj = result.commands[command];
+      let help = commandObj.help;
+      if (commandObj.help.indexOf('\n') !== -1) {
+        help = commandObj.help.substring(0, commandObj.help.lastIndexOf('\n'));
+      }
+      if (regexp.test(command) || regexp.test(help)) {
+        const numSpaces = 30 - command.length;
+        print(colorize(command, {color: 'green'}), Array(numSpaces).join(' '),
+            '-', help);
+      }
     }
+  }
 };
 

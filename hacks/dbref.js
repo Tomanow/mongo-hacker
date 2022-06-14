@@ -1,13 +1,13 @@
 DBRef.prototype.__toString = DBRef.prototype.toString;
-DBRef.prototype.toString = function () {
-  var org = this.__toString();
-  var config = mongo_hacker_config.dbref;
+DBRef.prototype.toString = function() {
+  const org = this.__toString();
+  const config = mongo_hacker_config.dbref;
   if (!config.extended_info) {
     return org;
   }
-  var additional = {};
-  var o = this;
-  for (var p in o) {
+  const additional = {};
+  const o = this;
+  for (let p in o) {
     if (typeof o[p] === 'function') {
       continue;
     }
@@ -23,6 +23,7 @@ DBRef.prototype.toString = function () {
     return tojsonObject(additional, undefined, true);
   }
   return Object.keys(additional).length
-    ? (org.slice(0, -1) + ", " + tojsonObject(additional, undefined, true) + ")")
-    : org;
+         ? (org.slice(0, -1) + ', ' +
+            tojsonObject(additional, undefined, true) + ')')
+         : org;
 };
