@@ -19,17 +19,12 @@
 
 ## Installation
 
-#### npm
-```sh
-npm install -g mongo-hacker
-mongo
-```
-
 #### Just generate the main file
 ```sh
 git clone https://github.com/Tomanow/mongo-hacker
 cd mongo-hacker
 make mongo_hacker.js
+# symlink or copy to your ~/.mongorc.js
 ```
 
 
@@ -38,6 +33,7 @@ make mongo_hacker.js
 git clone https://github.com/Tomanow/mongo-hacker
 cd mongo-hacker
 make install
+# delete repo after
 cd ..
 rm -rdf mongo-hacker/
 mongo
